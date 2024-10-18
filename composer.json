@@ -1,0 +1,21 @@
+{
+    "name": "vikramsra/email-log-to-db",
+    "description": "A plugin to log emails to the database in Laravel.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vikramjeet Singh Sra"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Vikramsra\\EmailLogToDb\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.2"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
