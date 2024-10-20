@@ -49,7 +49,7 @@ class LogSentEmail
             'cc' => $cc,
             'bcc' => $bcc,
             'subject' => $message->getSubject(),
-            'body' => $message->getTextBody() ?? $message->getHtmlBody(),
+            'body' => $message->getHtmlBody() ?? $message->getTextBody(),
             'headers' => $headers,
             'attachments' => $attachments, // Storing AWS links here
         ]);
