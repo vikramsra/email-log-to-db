@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +14,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container mt-5">
         <h2 class="mb-4 text-center">Email Logs</h2>
@@ -21,13 +23,16 @@
         <form id="filter-form" class="mb-4">
             <div class="row">
                 <div class="col-md-3">
-                    <input type="text" id="recipient" name="recipient" class="form-control" placeholder="Recipient" value="{{ request('recipient') }}">
+                    <input type="text" id="recipient" name="recipient" class="form-control" placeholder="Recipient"
+                        value="{{ request('recipient') }}">
                 </div>
                 <div class="col-md-3">
-                    <input type="text" id="subject" name="subject" class="form-control" placeholder="Subject" value="{{ request('subject') }}">
+                    <input type="text" id="subject" name="subject" class="form-control" placeholder="Subject"
+                        value="{{ request('subject') }}">
                 </div>
                 <div class="col-md-3">
-                    <input type="date" id="sent_date" name="sent_date" class="form-control" value="{{ request('sent_date') }}">
+                    <input type="date" id="sent_date" name="sent_date" class="form-control"
+                        value="{{ request('sent_date') }}">
                 </div>
                 <div class="col-md-3">
                     <button type="submit" class="btn btn-primary">Filter</button>
@@ -56,7 +61,7 @@
                     <p><strong>BCC:</strong> <span id="log-bcc"></span></p>
                     <p><strong>Subject:</strong> <span id="log-subject"></span></p>
                     <p><strong>Body:</strong></p>
-                    <pre id="log-body"></pre>
+                    <iframe src="" id="log-body" class="w-100" style="height: 400px"></iframe>
                     <p><strong>Attachments:</strong></p>
                     <div id="log-attachments"></div>
                 </div>
@@ -109,10 +114,11 @@
 
         // JavaScript to handle the modal data population
         const logDetailModal = document.getElementById('logDetailModal');
-        logDetailModal.addEventListener('show.bs.modal', function (event) {
+        logDetailModal.addEventListener('show.bs.modal', function(event) {
             const button = event.relatedTarget;
 
             // Extract data from the button attributes
+            const id = button.getAttribute('data-id');
             const sender = button.getAttribute('data-sender');
             const recipient = button.getAttribute('data-recipient');
             const cc = button.getAttribute('data-cc') || 'N/A';
@@ -120,6 +126,7 @@
             const subject = button.getAttribute('data-subject');
             const body = button.getAttribute('data-body');
             const attachments = JSON.parse(button.getAttribute('data-attachments'));
+            const url = '{{ route('email.logs.body', ':id') }}';
 
             // Update the modal content
             document.getElementById('log-sender').textContent = sender;
@@ -127,7 +134,7 @@
             document.getElementById('log-cc').textContent = cc;
             document.getElementById('log-bcc').textContent = bcc;
             document.getElementById('log-subject').textContent = subject;
-            document.getElementById('log-body').textContent = body;
+            document.getElementById('log-body').src = url.replace(':id', id);
 
             // Handle attachments
             const attachmentsContainer = document.getElementById('log-attachments');
@@ -147,4 +154,5 @@
         });
     </script>
 </body>
+
 </html>
